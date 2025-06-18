@@ -1,0 +1,268 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-footer: #3f4756;
+  --color-footer-accent: #a3abbd;
+  --color-team-bg: #e6f4fe;
+
+  --color-primary-60: #59d4ff;
+  --color-primary-80: #3badfc;
+  --color-primary-100: #0096fe;
+
+  --color-neutral-100: #ffffff;
+
+  --color-secondary-50: #2dbd6e80;
+  --color-secondary-100: #2dbd6e;
+
+  --color-text-40: #d9d9d9;
+  --color-text-60: #b1afaf;
+  --color-text-80: #646262;
+  --color-text-100: #302f2f;
+
+  --color-card-1: #18a8c2;
+  --color-card-2: #b6f083;
+  --color-card-3: #76e39c;
+  --color-card-4: #00bec1;
+  --color-card-5: #35d2b3;
+  --color-card-6: #00bec180;
+  --color-card-donation: #daeefe;
+
+  --color-floating-whatsapp: #e1f4d9;
+  --color-avatar-gray: #a4abb7;
+  --color-progress: #0999fc;
+  --color-progress-back: #d9d9d9;
+
+  --color-sidebar-100: #e1f4d9;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-r from-primary-100 to-secondary-100;
+}
+
+@utility input {
+  @apply border rounded-sm p-2 ring-0 outline-1 outline-gray-400 h-10;
+}
+
+@utility underline-animation {
+  position: relative;
+
+  &::after {
+    content: '';
+    width: calc(100% + 1rem);
+    height: 2px;
+    background-color: var(--color-secondary-100);
+    position: absolute;
+    bottom: 0;
+    left: -0.5rem;
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+
+  &.hovered::after {
+    opacity: 1;
+  }
+}
+
+@utility hovered {
+  & .underline-animation::after {
+    opacity: 1;
+  }
+}
+
+@utility gradient-background {
+  background: linear-gradient(
+    144deg,
+    rgba(45, 189, 110, 0.8) 0%,
+    rgba(35.56, 179.56, 147.23, 0.8) 26%,
+    rgba(25.66, 169.66, 186.28, 0.8) 54%,
+    rgba(17.02, 161.02, 220.36, 0.8) 78%,
+    rgba(9, 153, 252, 0.8) 100%
+  );
+}
+
+@utility custom-select {
+  position: relative;
+}
+
+@utility select-selected {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+@utility select-items {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+
+  & div {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  & div:hover {
+    background-color: rgba(178, 220, 253, 0.5);
+  }
+}
+
+@utility same-as-selected {
+  background-color: rgba(178, 220, 253, 0.5);
+}
+
+@utility dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  z-index: 100;
+  max-width: none;
+  max-height: none;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  visibility: hidden;
+  opacity: 0;
+  overscroll-behavior: contain;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  &[open] {
+    @apply visible opacity-100;
+  }
+  &::backdrop {
+    background: #0006;
+  }
+}
+
+@utility separator {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text-60);
+
+  &::before {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid var(--color-text-60);
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid var(--color-text-60);
+  }
+
+  &:not(:empty)::before {
+    margin-right: 0.25em;
+  }
+
+  &:not(:empty)::after {
+    margin-left: 0.25em;
+  }
+}
+
+@utility floating-whatsapp {
+  &::before {
+    position: absolute;
+    right: 90%;
+    width: 15.75rem;
+    background: var(--color-floating-whatsapp);
+    @apply rounded-l-lg px-4 py-1 opacity-0;
+  }
+}
+
+@layer base {
+    html {
+        font-family: "Helvetica", system-ui, sans-serif;
+    }
+
+    :root:has(.dialog[open]) {
+        overflow: hidden;
+        scrollbar-gutter: stable;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #999;
+        border-radius: 999px;
+    }
+
+    .gallery {
+        background-color: rgba(0,0,0,0);
+        -webkit-background-clip: text;
+        /* uncomment following line to see the trick in actions */
+        /* -webkit-text-fill-color: transparent;*/
+        transition: background-color .5s;
+    }
+    .gallery:hover {
+        background-color: rgba(0,0,0,0.18);
+    }
+    .gallery::-webkit-scrollbar-thumb {
+        background-color: inherit;
+    }
+    .gallery::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    .truncate-overflow {
+        position: relative;
+        max-height: calc(1.5rem * 4);
+        overflow: hidden;
+    }
+    .truncate-overflow::before {
+        position: absolute;
+        content: "";
+        inset-block-end: 0;
+        inset-inline-end: 0;
+    }
+    .truncate-overflow::after {
+        content: "";
+        position: absolute;
+        inset-inline-end: 0;
+        width: 1rem;
+        height: 1rem;
+        background: white;
+    }
+}
