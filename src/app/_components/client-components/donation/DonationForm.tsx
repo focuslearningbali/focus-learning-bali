@@ -383,7 +383,7 @@ export default function DonationForm({ donation }: DonationFormProps) {
       <Script
         id="midtrans-script"
         src="https://api.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js"
-        data-environment="sandbox"
+        data-environment="production"
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
         async
         type="text/javascript"
